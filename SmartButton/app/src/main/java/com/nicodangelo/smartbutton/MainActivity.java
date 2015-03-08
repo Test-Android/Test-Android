@@ -25,8 +25,20 @@ public class MainActivity extends ActionBarActivity
                 {
                     public void onClick(View v)
                     {
-                        TextView nicoText = (TextView)findViewById(R.id.nicoText);
+                        TextView nicoText = (TextView) findViewById(R.id.nicoText);
                         nicoText.setText("YAY");
+                    }
+                }
+        );
+
+        nicoButton.setOnLongClickListener(
+                new Button.OnLongClickListener()
+                {
+                    public boolean onLongClick(View v)
+                    {
+                        TextView nicoText = (TextView) findViewById(R.id.nicoText);
+                        nicoText.setText("THIS A LONG ONE");
+                        return true;
                     }
                 }
         );
