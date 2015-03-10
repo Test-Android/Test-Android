@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class MainActivity extends ActionBarActivity
+public class MainActivity extends ActionBarActivity implements TopSectionFragment.TopSectionListener
 {
 
     @Override
@@ -16,6 +16,13 @@ public class MainActivity extends ActionBarActivity
         setContentView(R.layout.activity_main);
     }
 
+    //This gets called by the top Fragment when the user clicks the button
+    @Override
+    public void createMeme(String top, String bottom)
+    {
+        BottomPictureFragment bottomFragment = (BottomPictureFragment) getSupportFragmentManager().findFragmentById(R.id.fragment2);
+        bottomFragment.setMemeText(top,bottom);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)

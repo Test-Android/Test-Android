@@ -12,10 +12,32 @@ import android.widget.EditText;
 
 //created by Jake Cox
 
-public class top_section_fragment extends Fragment
+public class TopSectionFragment extends Fragment
 {
     private static EditText topTextInput;
     private static EditText bottomTextInput;
+
+    TopSectionListener activityCommander;
+
+    public interface TopSectionListener
+    {
+        public void createMeme(String top, String bottom);
+    }
+
+    @Override
+    public void onAttach(Activity activity)
+    {
+        super.onAttach(activity);
+
+        try
+        {
+            activityCommander = (TopSectionListener) activity;
+        }
+        catch(ClassCastException e)
+        {
+            throw new ClassCastException(activity.toString());
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -41,8 +63,9 @@ public class top_section_fragment extends Fragment
         return view;
     }
 
+    //Calls this when the button is clicked
     public void buttonClicked(View v)
     {
-
+        activityCommander.createMeme(topTextInput.getText().toString(),bottomTextInput.getText().toString());
     }
 }
