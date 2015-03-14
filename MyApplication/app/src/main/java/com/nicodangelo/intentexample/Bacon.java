@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
+import android.widget.TextView;
 
 public class Bacon extends ActionBarActivity
 {
@@ -16,6 +16,19 @@ public class Bacon extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bacon);
+
+        //now you need to take the string you were sent and display ir
+        Bundle applesData = getIntent().getExtras();
+        if(applesData == null)
+        {
+            return;
+        }
+        else
+        {
+            String appleMessage = applesData.getString("appleMessage");
+            final TextView baconOutput = (TextView) findViewById(R.id.baconOutput);
+            baconOutput.setText(appleMessage);
+        }
     }
 
     public void onClick(View view)

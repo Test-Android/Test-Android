@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
 import android.view.View;
+import android.widget.*;
 
 
 public class Apples extends ActionBarActivity
@@ -21,6 +22,15 @@ public class Apples extends ActionBarActivity
     public void onClick(View view)
     {
         Intent i = new Intent(this,Bacon.class);
+
+        //these get the string
+        final EditText applesInput = (EditText) findViewById(R.id.applesInput);
+        String userMessage = applesInput.getText().toString();
+
+        //send it to bacon
+        //reference the piece of data named userMessage with the keyword appleMessage
+        i.putExtra("appleMessage",userMessage);
+
         startActivity(i);
     }
 
