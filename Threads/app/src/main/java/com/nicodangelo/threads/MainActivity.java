@@ -6,10 +6,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.os.Handler;
+import android.os.Message;
 
 
 public class MainActivity extends ActionBarActivity
 {
+
+    //Create a handler to change the text outside of the thread!! we created
+    Handler handler = new Handler()
+    {
+        @Override
+        public void handleMessage(Message msg)
+        {
+            TextView nicosText = (TextView) findViewById(R.id.nicosText);
+            nicosText.setText("Nice Job Hoss!");
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -20,20 +33,41 @@ public class MainActivity extends ActionBarActivity
 
     public void clickNicosButton(View view)
     {
-        Long futureTime = System.currentTimeMillis() + 10000;
-        while(System.currentTimeMillis() < futureTime)
+        //there is a rule for using threads though...
+        //you never want to update the interface inside a thread that is not the main thread... (or a handler)
+        //I dont know what will happen I just know that that is very very bad and bad things will come of it:)
+        //To do that item do it in the main thread or you can use the things called HANDLERS!!!!!!! thos will be perfect:)
+        Runnable r = new Runnable()
         {
-            synchronized (this)
+            @Override
+            public void run()
             {
-                try
+                Long futureTime = System.currentTimeMillis() + 10000;
+                while(System.currentTimeMillis() < futureTime)
                 {
-                    wait(futureTime - System.currentTimeMillis());
+                    synchronized (this)
+                    {
+                        try
+                        {
+                            wait(futureTime - System.currentTimeMillis());
+                        }
+                        catch(Exception e){}
+                    }
                 }
-                catch(Exception e){}
+                //calls the handler and takes an int (this is empty so i put 0..)
+                handler.sendEmptyMessage(0);
             }
-        }
+        };
+
+        //now we just create the thread and add our runnable code to it
+        Thread nicosThread = new Thread(r);
+
+        //This will start the new thread!
+        nicosThread.start();
+
         TextView nicosText = (TextView) findViewById(R.id.nicosText);
-        nicosText.setText("Nice Job Hoss!");
+        //this will now happen instaintly and it will then change again after 10 secconds
+        nicosText.setText("Wait 10 seconds...");
     }
 
 
