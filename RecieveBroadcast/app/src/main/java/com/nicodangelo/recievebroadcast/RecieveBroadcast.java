@@ -1,0 +1,21 @@
+package com.nicodangelo.recievebroadcast;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.widget.Toast;
+
+public class RecieveBroadcast extends BroadcastReceiver
+{
+    public RecieveBroadcast()
+    {
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent)
+    {
+        System.out.println("receive");
+        // an Intent broadcast.
+        Toast.makeText(context,"Broadcast has been received", Toast.LENGTH_LONG).show();
+    }
+}
