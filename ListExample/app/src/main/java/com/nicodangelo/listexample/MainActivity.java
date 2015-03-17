@@ -21,7 +21,7 @@ public class MainActivity extends Activity
         setContentView(R.layout.activity_main);
 
         String[] foods = {"Bacon", "Ham", "Tuna", "Candy", "Meatball", "Potato", "grape", "apple", "sandwich", "pear", "chicken", "water", "nuts", "popcorn", "peanut Butter"};
-        ListAdapter nicosAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,foods);
+        ListAdapter nicosAdapter = new CustomAdapter(this, foods);
         ListView nicosListView = (ListView) findViewById(R.id.nicosListView);
         nicosListView.setAdapter(nicosAdapter);
 
