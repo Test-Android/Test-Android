@@ -46,4 +46,16 @@
         android:id="@+id/nicosText"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:layout_alignTop="@+id/nicosInput"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="192dp"
+        android:layout_marginStart="192dp"/>
 </RelativeLayout>
