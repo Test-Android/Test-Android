@@ -35,7 +35,7 @@ public class MyDBHandler extends SQLiteOpenHelper
     //name the column after what is in it? seems like a good idea...
     public static final String COLUMN_ID = "_id";
     //name this column like the info in it?? yes my good sir.
-    public static final String Column_PRODUCTNAME = "productname";
+    public static final String COLUMN_PRODUCTNAME = "productname";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //the constructor and onCreate() and onUpgrade() methods examples and usage
@@ -60,10 +60,10 @@ public class MyDBHandler extends SQLiteOpenHelper
         //Create a new query... doesn't have to be called that
         //in this String you create the name of the table and inside ( you put all the column data ). inside the " you put all the properties "
         //for that column
-        String query = "Create Table" + TABLE_PRODUCTS + "(" +
+        String query = "CREATE TABLE" + TABLE_PRODUCTS + " ( " +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT " + //AUTOINCREMENT makes it so it auto adds one to each item so 0, 1, 2, 3, 4.. get it?
-                Column_PRODUCTNAME + " TEXT " + //for this we are just storing text
-                ")";
+                COLUMN_PRODUCTNAME + " TEXT " + //for this we are just storing text
+                ");";
         //this will execute the query
         db.execSQL(query);
     }
@@ -91,7 +91,7 @@ public class MyDBHandler extends SQLiteOpenHelper
     {
         //makes inserting rows into your table really easy
         ContentValues values = new ContentValues();
-        values.put(Column_PRODUCTNAME, product.get_productName());
+        values.put(COLUMN_PRODUCTNAME, product.get_productName());
         //this db is now equal to the database we are going to write to.
         SQLiteDatabase db = getWritableDatabase();
         //this will insert a new row into the table
@@ -105,7 +105,7 @@ public class MyDBHandler extends SQLiteOpenHelper
     {
         SQLiteDatabase db = getWritableDatabase();
         //this one may be confusing but it deletes the product from the table that you choose.
-        db.execSQL("DELETE FROM" + TABLE_PRODUCTS + " WHERE " + Column_PRODUCTNAME + " =\"" + productName +  "\";");
+        db.execSQL("DELETE FROM" + TABLE_PRODUCTS + " WHERE " + COLUMN_PRODUCTNAME + " =\"" + productName +  "\";");
         //this might not be good at all but i put it here because it makes sense...
         db.close();
     }
