@@ -16,8 +16,9 @@ package com.nicodangelo.sqlitesample;
 import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+//import android.database.sqlite.SQLiteDatabase;
+//import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.*;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //The class itself and all the instructions and examples to get this going
@@ -60,11 +61,11 @@ public class MyDBHandler extends SQLiteOpenHelper
         //Create a new query... doesn't have to be called that
         //in this String you create the name of the table and inside ( you put all the column data ). inside the " you put all the properties "
         //for that column
-        String query = "CREATE TABLE" + TABLE_PRODUCTS + " ( " +
-                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT " + //AUTOINCREMENT makes it so it auto adds one to each item so 0, 1, 2, 3, 4.. get it?
+        String query = "CREATE TABLE " + TABLE_PRODUCTS + "(" +
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + //AUTOINCREMENT makes it so it auto adds one to each item so 0, 1, 2, 3, 4.. get it?
                 COLUMN_PRODUCTNAME + " TEXT " + //for this we are just storing text
                 ");";
-        //this will execute the query
+        /* this will execute the query */
         db.execSQL(query);
     }
 
@@ -76,7 +77,7 @@ public class MyDBHandler extends SQLiteOpenHelper
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
         //first thing to do is delete the current table
-        db.execSQL("DROP_TABLE_IF_EXISTS" + TABLE_PRODUCTS);
+        db.execSQL("DROP TABLE IF EXISTS" + TABLE_PRODUCTS);
         //after the current table has been deleted you want to use the new code
         //you changed so call your onCreate() again!!
         onCreate(db);
@@ -115,11 +116,12 @@ public class MyDBHandler extends SQLiteOpenHelper
     {
         String dbString = "";
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM" + TABLE_PRODUCTS + " WHERE 1";
+        String query;
+        query = "SELECT * FROM " + TABLE_PRODUCTS + "," + " WHERE 1" + ";";
 
         //Courser point to a location results
         Cursor c = db.rawQuery(query, null);
-        //move to the first row in your results
+        // move to the first row in your results
         c.moveToFirst();
 
         while(!c.isAfterLast())
@@ -131,6 +133,7 @@ public class MyDBHandler extends SQLiteOpenHelper
             }
         }
         db.close();
+        c.close();
         return dbString;
 
     }

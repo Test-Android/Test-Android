@@ -11,7 +11,6 @@ import android.widget.*;
 
 public class Apples extends ActionBarActivity
 {
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
