@@ -40,7 +40,6 @@ public class MainActivity extends ActionBarActivity
     {
         String inputText = nicosText.getText().toString();
         dbHandler.deleteProduct(inputText);
-        System.out.println("DELETE CLICKED");
         printDatabase();
     }
 
