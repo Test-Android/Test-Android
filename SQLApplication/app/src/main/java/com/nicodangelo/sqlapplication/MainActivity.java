@@ -4,42 +4,51 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity
 {
+    EditText input;
+    TextView nicosText;
+    MyDBHandler dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        input = (EditText) findViewById(R.id.input);
+        nicosText = (TextView) findViewById(R.id.nicosText);
+        dbHandler = new MyDBHandler(this, null, null, 1);
+        printDatabase();
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
+    //Add a Item to the database
+    public void AddButtonClick(View view)
     {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        Products product = new Products(input.getText().toString());
+        dbHandler.addProduct(product);
+        printDatabase();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
+    //Delete items
+    public void deleteButtonClick(View view)
     {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        String inputText = nicosText.getText().toString();
+        dbHandler.deleteProduct(inputText);
+        System.out.println("DELETE CLICKED");
+        printDatabase();
+    }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
-        {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    private void printDatabase()
+    {
+        nicosText.setText("");
+        String dbString = dbHandler.databaseToString();
+        nicosText.setText(dbString);
+        input.setText("");
     }
 }
