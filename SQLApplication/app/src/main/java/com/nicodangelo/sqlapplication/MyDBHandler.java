@@ -46,10 +46,37 @@ public class MyDBHandler extends SQLiteOpenHelper
 
         //Delete a product from the database
         public void deleteProduct(String productName){
+           /* //String query = ("DELETE FROM "+ TABLE_PRODUCTS + " WHERE " + "_id=1");
+            for(int x = 1; x < db.getMaximumSize(); x++)
+            {
+                String y = Integer.toString(x);
+                db.execSQL("SELECT * FROM " + TABLE_PRODUCTS + "WERE _id=" + y);
+            }*/
+
             SQLiteDatabase db = getWritableDatabase();
-            String query = ("DELETE FROM "+ TABLE_PRODUCTS + " WHERE " + COLUMN_PRODUCTNAME + "=\"" + productName + "\"" + ";");
+            String query = "SELECT * FROM " + TABLE_PRODUCTS + " WHERE 1;";
+
+            //Cursor points to a location in your results
+            Cursor c = db.rawQuery(query, null);
+            //Move to the first row in your results
+            c.moveToFirst();
+
+            //Position after the last row means the end of the results
+            while (!c.isAfterLast()) {
+                System.out.println("Cursor Name: " + c.getString(c.getColumnIndex("productname")));
+                System.out.println("Cursor Pos: " +  c.getPosition());
+                //String keyid = c.getString(c.getColumnIndex("KEY_ID"));
+                if (c.getString(c.getColumnIndex("productname")).equalsIgnoreCase(productName)) {
+                    int tempID = c.getPosition() + 2;
+                    db.execSQL("SELECT * FROM " + TABLE_PRODUCTS + "WHERE _id=" + tempID);
+                }
+                c.moveToNext();
+            }
+            db.close();
+
+            /*String query = ("DELETE FROM "+ TABLE_PRODUCTS + " WHERE " + TABLE_PRODUCTS + "=\"" + productName + "\";");
             db.execSQL(query);
-            System.out.println(query);
+            System.out.println(query);*/
             System.out.println("this is the product " + COLUMN_PRODUCTNAME + "  " + productName);
         }
 
