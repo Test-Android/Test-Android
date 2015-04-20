@@ -38,7 +38,8 @@ public class MainActivity extends ActionBarActivity
     //Delete items
     public void deleteButtonClick(View view)
     {
-        String inputText = nicosText.getText().toString();
+        String inputText = input.getText().toString();
+        System.out.println("ITEM TO DELETE = " + inputText);
         dbHandler.deleteProduct(inputText);
         printDatabase();
     }

@@ -45,13 +45,17 @@ public class MyDBHandler extends SQLiteOpenHelper
         }
 
         //Delete a product from the database
-        public void deleteProduct(String productName){
-           /* //String query = ("DELETE FROM "+ TABLE_PRODUCTS + " WHERE " + "_id=1");
-            for(int x = 1; x < db.getMaximumSize(); x++)
+        public void deleteProduct(String productName)
+        {
+            SQLiteDatabase db = getWritableDatabase();
+            String query = ("DELETE FROM "+ TABLE_PRODUCTS + " WHERE " + " productname='" + productName + "';");
+            db.execSQL(query);
+            db.close();
+          /*  for(int x = 1; x < db.getMaximumSize(); x++)
             {
                 String y = Integer.toString(x);
                 db.execSQL("SELECT * FROM " + TABLE_PRODUCTS + "WERE _id=" + y);
-            }*/
+            }
 
             SQLiteDatabase db = getWritableDatabase();
             String query = "SELECT * FROM " + TABLE_PRODUCTS + " WHERE 1;";
