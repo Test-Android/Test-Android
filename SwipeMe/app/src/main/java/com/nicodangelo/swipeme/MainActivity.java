@@ -82,6 +82,8 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
         return true;
     }
 
+
+
     ///////////////////////End Gestures///////////////////////
 
 
